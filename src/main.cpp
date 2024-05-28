@@ -33,8 +33,6 @@
 float Humidity = 0.0;
 float Temperature = 0.0;
 
-
-
 DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
 WebServer server(80);
 
@@ -52,6 +50,7 @@ void setup(){
   Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
+  
   while (WiFi.status() != WL_CONNECTED){
     Serial.print(".");
     delay(300);
@@ -85,46 +84,50 @@ void setup(){
 
 void loop(){
 
-  Humidity = dht_sensor.readTemperature();
-  Temperature = dht_sensor.readHumidity();
 
-  Serial.println(Humidity);
-  Serial.println(Temperature);
 
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0)){
+
     sendDataPrevMillis = millis();
+    Humidity = dht_sensor.readTemperature();
+    Temperature = dht_sensor.readHumidity();
+
 
     // Write an Int number on the database path test/int
-    if (Firebase.RTDB.setFloat(&fbdo, "test/float", Temperature)){
-      Serial.println("PASSED");
-      Serial.println("PATH:");
-      Serial.print(fbdo.dataPath());
-
-      Serial.println("TYPE:  ");
-      Serial.println(fbdo.dataType());
-
-    }
-    else {
-      Serial.println("FAILED");
-      Serial.print("REASON: ");
-      Serial.println( fbdo.errorReason());
-
-    }
-    count++;
-    
-    // Write an Float number on the database path test/float
-    if (Firebase.RTDB.setFloat(&fbdo, "test/float", Humidity)){
-      Serial.println("PASSED");
+    if (Firebase.RTDB.setFloat(&fbdo, "dht/temperature", Temperature)){
       
-      Serial.println("PATH: ");
+      Serial.print("  Temperature:  ");
+      Serial.println(Temperature);
+      Serial.println("PASSED");
+      Serial.print(" PATH: ");
       Serial.print(fbdo.dataPath());
-      Serial.println("TYPE: ");
+
+      Serial.print("  TYPE:  ");
       Serial.print(fbdo.dataType());
 
     }
     else {
       Serial.println("FAILED");
-      Serial.println("REASON: ");
+      Serial.print("REASON: ");
+      Serial.print( fbdo.errorReason());
+
+    }
+    
+    // Write an Float number on the database path test/float
+    if (Firebase.RTDB.setFloat(&fbdo, "dht/humidity", Humidity)){
+      
+      Serial.print("  Humidity:  ");
+      Serial.println(Humidity);
+      Serial.println("PASSED");
+      Serial.print(" PATH: ");
+      Serial.print(fbdo.dataPath());
+      Serial.print("  TYPE: ");
+      Serial.print(fbdo.dataType());
+
+    }
+    else {
+      Serial.println("FAILED");
+      Serial.print("REASON: ");
       Serial.print(fbdo.errorReason());
 
     }
