@@ -24,7 +24,6 @@ function App() {
         Vehicle Location display 
       </h1>
      	<h1>This is Heading 1 </h1>
-   		<h2>This is Heading 2</h2>
 		  <h3>This is Heading 3 </h3>
     <table>
       <tr>

@@ -51,7 +51,7 @@
       var defaultLocation = { lat: latitude, lng: longitude };                // Default coordinates (e.g., balakot Swat City)
       var defaultLocation2 = { lat: latitude2, lng: longitude2 };                // Default coordinates (e.g., balakot Swat City)
 
-      var delay = 50;
+      var delay = 10;
 
       var map = new google.maps.Map(document.getElementById('map'), {     // Create a map object and specify the DOM element for display.
         center: defaultLocation,
@@ -67,7 +67,7 @@
         zoom: 15
       });
 
-      for (let i = 0; i < 20; i++) {                                                                   // Retrieve latitude and longitude values from user input or other sources                                                                      
+      for (let i = 0; i < 10; i++) {                                                                   // Retrieve latitude and longitude values from user input or other sources                                                                      
         var location = new google.maps.LatLng(latitude, longitude);     // Create a new LatLng object using the latitude and longitude values                                                           
         map.setCenter(location);                                        // Set the map center to the retrieved location
 
