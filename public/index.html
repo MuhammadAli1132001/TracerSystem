@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -25,95 +23,96 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+  <link rel="stylesheet" href="index.css">
 
-    <link rel="stylesheet" href="mapstyle.css">
+</head>
 
-    <!-- <button id = "control-button"> stop</button>
-    
-    <h1>Location Display </h1> 
-    <div id="map"></div>
-   
-    <script>
-        // of My Eletrical Vehical
+<body>
+  <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
+  <div id="root"></div>
+  <div id="map"></div>
+
+  <h1>Location Displays </h1>
+  <div id="map"></div>
+
+  <script>
+    // of My Eletrical Vehical
     var latitude = 34.100305;                                     // Replace with your latitude value
     var longitude = 71.477271;                                    // Replace with your longitude value 
     var latitude2 = 34.100105;                                     // Replace with your latitude value
     var longitude2 = 71.477271;                                    // Replace with your longitude value 
 
     function sleep(ms) {
-         return new Promise(resolve => setTimeout(resolve, ms));
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function initMap() {
+
+      var defaultLocation = { lat: latitude, lng: longitude };                // Default coordinates (e.g., balakot Swat City)
+      var defaultLocation2 = { lat: latitude2, lng: longitude2 };                // Default coordinates (e.g., balakot Swat City)
+
+      var delay = 1000;
+
+      var map = new google.maps.Map(document.getElementById('map'), {     // Create a map object and specify the DOM element for display.
+        center: defaultLocation,
+        zoom: 15
+      });
+
+      var map = new google.maps.Map(document.getElementById('map'), {     // Create a map object and specify the DOM element for display.
+        center: defaultLocation2,
+        zoom: 15
+      });
+
+      for (let i = 0; i < 20; i++) {                                                                   // Retrieve latitude and longitude values from user input or other sources                                                                      
+        var location = new google.maps.LatLng(latitude, longitude);     // Create a new LatLng object using the latitude and longitude values                                                           
+        map.setCenter(location);                                        // Set the map center to the retrieved location
+
+        var location2 = new google.maps.LatLng(latitude2, longitude2);
+        map.setCenter(location2);
+
+        var marker = new google.maps.Marker({                           // Create a marker at the retrieved location
+          position: location,
+          map: map,
+          title: 'Location'                                           //icon: 'link' -- if we want an image icon as marker
+        });
+
+        var marker2 = new google.maps.Marker({                           // Create a marker at the retrieved location
+          position: location2,
+          map: map,
+          title: 'Location2'                                           //icon: 'link' -- if we want an image icon as marker
+        });
+
+        var ghal = new google.maps.InfoWindow({                           //marker labal on click
+          content: '<h1> Ghal Dady </h1>'
+        });
+
+        var ghal2 = new google.maps.InfoWindow({                           //marker labal on click
+          content: '<h1> Ghal Dady </h1>'
+        });
+
+        marker.addListener('click', function () {                            //listen onclick
+          ghal.open(map, marker);
+        });
+
+        marker2.addListener('click', function () {                           //listen onclick
+          ghal2.open(map, marker2);
+        });
+
+        latitude = latitude + 0.001;
+        longitude2 = longitude2 + 0.001;
+
+        await sleep(delay);
+
       }
-      
-        async function initMap() {
-                                                                               
-            var defaultLocation = { lat: latitude, lng: longitude };                // Default coordinates (e.g., balakot Swat City)
-            var defaultLocation2 = { lat: latitude2, lng: longitude2 };                // Default coordinates (e.g., balakot Swat City)
+    }
 
-            var delay =1000;
-
-                var map = new google.maps.Map(document.getElementById('map'), {     // Create a map object and specify the DOM element for display.
-                    center: defaultLocation,
-                    zoom: 15
-                });
-
-                var map = new google.maps.Map(document.getElementById('map'), {     // Create a map object and specify the DOM element for display.
-                    center: defaultLocation2,
-                    zoom: 15
-                });
-                            
-            for (let i = 0; i < 20; i++)
-            {                                                                   // Retrieve latitude and longitude values from user input or other sources                                                                      
-                var location = new google.maps.LatLng(latitude, longitude);     // Create a new LatLng object using the latitude and longitude values                                                           
-                map.setCenter(location);                                        // Set the map center to the retrieved location
-
-                var location2 = new google.maps.LatLng(latitude2, longitude2);
-                map.setCenter(location2);
-
-                var marker = new google.maps.Marker({                           // Create a marker at the retrieved location
-                    position: location,
-                    map: map,
-                    title: 'Location'                                           //icon: 'link' -- if we want an image icon as marker
-                });
-
-                var marker2 = new google.maps.Marker({                           // Create a marker at the retrieved location
-                    position: location2,
-                    map: map,
-                    title: 'Location2'                                           //icon: 'link' -- if we want an image icon as marker
-                });
-
-                var ghal = new google.maps.InfoWindow({                           //marker labal on click
-                    content: '<h1> Ghal Dady </h1>'
-                });
-
-                var ghal2 = new google.maps.InfoWindow({                           //marker labal on click
-                    content: '<h1> Ghal Dady </h1>'
-                });
-
-                marker.addListener('click', function(){                            //listen onclick
-                    ghal.open(map, marker);
-                }); 
-
-                marker2.addListener('click', function(){                           //listen onclick
-                    ghal2.open(map, marker2);
-                }); 
-
-             latitude = latitude + 0.001;
-             longitude2 = longitude2 + 0.001;
-
-             await sleep(delay);  
-
-           }
-          }
-
+  </script>
+  <!-- Load the Maps JavaScript API -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap">
     </script>
-    <!-- Load the Maps JavaScript API -->
-    <!-- <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap">
-    </script> --> 
 
-  </body>
+
+</body>
+
 </html>

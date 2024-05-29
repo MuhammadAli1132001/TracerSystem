@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+
+#control-button-stop {
+
+  background-color: red;
+  margin: 2% 10%;
+  width: 100px; height: 40px;
+  border-radius: 20px;
+}
+
+#control-button-run {
+
+  background-color:aliceblue;
+  margin: 20% 50%;
+  width: 100px; height: 40px;
+  border-radius: 20px;
+}
