@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #486bb2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -48,8 +48,32 @@
 
 #control-button-run {
 
-  background-color:aliceblue;
+  background-color:rgb(76, 125, 168);
   margin: 20% 50%;
   width: 100px; height: 40px;
   border-radius: 20px;
+}
+
+/* src/App.css */
+.App-header {
+  text-align: center;
+}
+
+nav {
+  margin: 10px 0;
+}
+
+nav button {
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: #282c34;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+nav button:hover {
+  background-color: #61dafb;
 }

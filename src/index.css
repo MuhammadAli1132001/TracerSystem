@@ -25,10 +25,9 @@ code {
 }
 
 #map {
+  margin-left:  10%;
 
-  /* padding-left: 70%; */
-  margin-left: 10%;
-  height: 600px;
+  height: 800px;
   width: 80%;
   border-radius: 20px;
 
