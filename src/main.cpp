@@ -46,6 +46,10 @@ unsigned long sendDataPrevMillis = 0;
 int count = 0;
 bool signupOK = false;
 
+uint8_t  capacity = 90;
+uint8_t current = 23;
+
+
 void setup(){
   Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -118,6 +122,42 @@ void loop(){
       
       Serial.print("  Humidity:  ");
       Serial.println(Humidity);
+      Serial.println("PASSED");
+      Serial.print(" PATH: ");
+      Serial.print(fbdo.dataPath());
+      Serial.print("  TYPE: ");
+      Serial.print(fbdo.dataType());
+
+    }
+    else {
+      Serial.println("FAILED");
+      Serial.print("REASON: ");
+      Serial.print(fbdo.errorReason());
+
+    }
+
+    if (Firebase.RTDB.setFloat(&fbdo, "battery/capacity", capacity)){
+      
+      Serial.print("  Capacity:  ");
+      Serial.println(capacity);
+      Serial.println("PASSED");
+      Serial.print(" PATH: ");
+      Serial.print(fbdo.dataPath());
+      Serial.print("  TYPE: ");
+      Serial.print(fbdo.dataType());
+
+    }
+    else {
+      Serial.println("FAILED");
+      Serial.print("REASON: ");
+      Serial.print(fbdo.errorReason());
+
+    }
+
+    if (Firebase.RTDB.setFloat(&fbdo, "battery/current", current)){
+      
+      Serial.print("  Current:  ");
+      Serial.println(current);
       Serial.println("PASSED");
       Serial.print(" PATH: ");
       Serial.print(fbdo.dataPath());
