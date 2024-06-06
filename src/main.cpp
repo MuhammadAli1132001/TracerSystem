@@ -46,7 +46,7 @@ unsigned long sendDataPrevMillis = 0;
 int count = 0;
 bool signupOK = false;
 
-uint8_t  capacity = 90;
+uint8_t  capacity = 70;
 uint8_t current = 23;
 
 
