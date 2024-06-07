@@ -5,15 +5,15 @@
 #include <DHT.h>
 
 #if defined(ESP32)
-  #include <WiFi.h>
+#include <WiFi.h>
 #elif defined(ESP8266)
-  #include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h>
 #endif
 #include <Firebase_ESP_Client.h>
 
-//Provide the token generation process info.
+// Provide the token generation process info.
 #include "addons/TokenHelper.h"
-//Provide the RTDB payload printing info and other helper functions.
+// Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
 
 // Insert your network credentials
@@ -26,7 +26,7 @@
 #define API_KEY "AIzaSyCc9UlEu4d95dMJ85aWfMsxHEybkH7CUtQ"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "https://tracer-system-with-esp32-default-rtdb.asia-southeast1.firebasedatabase.app/" 
+#define DATABASE_URL "https://tracer-system-with-esp32-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
 #define Dht_Sensor_Pin 9
 #define Dht_type DHT11
@@ -36,7 +36,7 @@ float Temperature = 0.0;
 DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
 WebServer server(80);
 
-//Define Firebase Data object
+// Define Firebase Data object
 FirebaseData fbdo;
 
 FirebaseAuth auth;
@@ -46,16 +46,18 @@ unsigned long sendDataPrevMillis = 0;
 int count = 0;
 bool signupOK = false;
 
-uint8_t  capacity = 70;
+uint8_t capacity = 70;
 uint8_t current = 23;
+uint8_t voltage = 63;
 
-
-void setup(){
+void setup()
+{
   Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
-  
-  while (WiFi.status() != WL_CONNECTED){
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
     Serial.print(".");
     delay(300);
   }
@@ -71,35 +73,37 @@ void setup(){
   config.database_url = DATABASE_URL;
 
   /* Sign up */
-  if (Firebase.signUp(&config, &auth, "", "")){
+  if (Firebase.signUp(&config, &auth, "", ""))
+  {
     Serial.println("ok");
     signupOK = true;
   }
-  else{
+  else
+  {
     Serial.printf("%s\n", config.signer.signupError.message.c_str());
   }
 
   /* Assign the callback function for the long running token generation task */
-  config.token_status_callback = tokenStatusCallback; //see addons/TokenHelper.h
-  
+  config.token_status_callback = tokenStatusCallback; // see addons/TokenHelper.h
+
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
 }
 
-void loop(){
+void loop()
+{
 
-
-
-  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0)){
+  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0))
+  {
 
     sendDataPrevMillis = millis();
     Humidity = dht_sensor.readTemperature();
     Temperature = dht_sensor.readHumidity();
 
-
     // Write an Int number on the database path test/int
-    if (Firebase.RTDB.setFloat(&fbdo, "dht/temperature", Temperature)){
-      
+    if (Firebase.RTDB.setFloat(&fbdo, "dht/temperature", Temperature))
+    {
+
       Serial.print("  Temperature:  ");
       Serial.println(Temperature);
       Serial.println("PASSED");
@@ -108,18 +112,18 @@ void loop(){
 
       Serial.print("  TYPE:  ");
       Serial.print(fbdo.dataType());
-
     }
-    else {
+    else
+    {
       Serial.println("FAILED");
       Serial.print("REASON: ");
-      Serial.print( fbdo.errorReason());
-
+      Serial.print(fbdo.errorReason());
     }
-    
+
     // Write an Float number on the database path test/float
-    if (Firebase.RTDB.setFloat(&fbdo, "dht/humidity", Humidity)){
-      
+    if (Firebase.RTDB.setFloat(&fbdo, "dht/humidity", Humidity))
+    {
+
       Serial.print("  Humidity:  ");
       Serial.println(Humidity);
       Serial.println("PASSED");
@@ -127,17 +131,17 @@ void loop(){
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
       Serial.print(fbdo.dataType());
-
     }
-    else {
+    else
+    {
       Serial.println("FAILED");
       Serial.print("REASON: ");
       Serial.print(fbdo.errorReason());
-
     }
 
-    if (Firebase.RTDB.setFloat(&fbdo, "battery/capacity", capacity)){
-      
+    if (Firebase.RTDB.setFloat(&fbdo, "battery/capacity", capacity))
+    {
+
       Serial.print("  Capacity:  ");
       Serial.println(capacity);
       Serial.println("PASSED");
@@ -145,17 +149,17 @@ void loop(){
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
       Serial.print(fbdo.dataType());
-
     }
-    else {
+    else
+    {
       Serial.println("FAILED");
       Serial.print("REASON: ");
       Serial.print(fbdo.errorReason());
-
     }
 
-    if (Firebase.RTDB.setFloat(&fbdo, "battery/current", current)){
-      
+    if (Firebase.RTDB.setFloat(&fbdo, "battery/current", current))
+    {
+
       Serial.print("  Current:  ");
       Serial.println(current);
       Serial.println("PASSED");
@@ -163,18 +167,35 @@ void loop(){
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
       Serial.print(fbdo.dataType());
-
     }
-    else {
+    else
+    {
       Serial.println("FAILED");
       Serial.print("REASON: ");
       Serial.print(fbdo.errorReason());
+    }
+  
 
+      if (Firebase.RTDB.setFloat(&fbdo, "battery/voltage", voltage))
+    {
+
+      Serial.print("  voltage:  ");
+      Serial.println(current);
+      Serial.println("PASSED");
+      Serial.print(" PATH: ");
+      Serial.print(fbdo.dataPath());
+      Serial.print("  TYPE: ");
+      Serial.print(fbdo.dataType());
+    }
+    else
+    {
+      Serial.println("FAILED");
+      Serial.print("REASON: ");
+      Serial.print(fbdo.errorReason());
     }
   }
+
 }
-
-
 
 // #define wifissid "CST WIFI"
 // #define wifipssd "iotdevs123"
@@ -215,7 +236,6 @@ void loop(){
 //   delay(500);
 
 // }
-
 
 // void handleOnroot() {
 //   digitalWrite(led, 1);
@@ -262,7 +282,5 @@ void loop(){
 // }
 
 // void returnfalse(){
-  
-  
 
 // }
