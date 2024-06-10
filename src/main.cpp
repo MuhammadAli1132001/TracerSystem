@@ -27,8 +27,10 @@
 
 // Insert RTDB URLefine the RTDB URL */
 #define DATABASE_URL "https://tracer-system-with-esp32-default-rtdb.asia-southeast1.firebasedatabase.app/"
-
+#define DataSendedLed 8
+#define WifiConnectedLed 7
 #define Dht_Sensor_Pin 9
+
 #define Dht_type DHT11
 float Humidity = 0.0;
 float Temperature = 0.0;
@@ -55,6 +57,8 @@ void setup()
   Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
+  pinMode(WifiConnectedLed, OUTPUT);
+  pinMode(DataSendedLed, OUTPUT);
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -62,9 +66,11 @@ void setup()
     delay(300);
   }
   Serial.println();
+
   Serial.print("Connected with IP: ");
   Serial.println(WiFi.localIP());
   Serial.println();
+  digitalWrite(WifiConnectedLed, HIGH);
 
   /* Assign the api key (required) */
   config.api_key = API_KEY;
@@ -99,6 +105,7 @@ void loop()
     sendDataPrevMillis = millis();
     Humidity = dht_sensor.readTemperature();
     Temperature = dht_sensor.readHumidity();
+    digitalWrite(DataSendedLed, HIGH);
 
     // Write an Int number on the database path test/int
     if (Firebase.RTDB.setFloat(&fbdo, "dht/temperature", Temperature))
