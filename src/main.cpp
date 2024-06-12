@@ -167,7 +167,7 @@ void loop()
     if (Firebase.RTDB.setFloat(&fbdo, "battery/current", current))
     {
 
-      Serial.print("  Current:  ");
+      Serial.print("  current:  ");
       Serial.println(current);
       Serial.println("PASSED");
       Serial.print(" PATH: ");
