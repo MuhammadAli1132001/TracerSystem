@@ -181,9 +181,8 @@ void loop()
       Serial.print("REASON: ");
       Serial.print(fbdo.errorReason());
     }
-  
 
-      if (Firebase.RTDB.setFloat(&fbdo, "battery/voltage", voltage))
+    if (Firebase.RTDB.setFloat(&fbdo, "battery/voltage", voltage))
     {
 
       Serial.print("  voltage:  ");
@@ -201,7 +200,6 @@ void loop()
       Serial.print(fbdo.errorReason());
     }
   }
-
 }
 
 // #define wifissid "CST WIFI"
