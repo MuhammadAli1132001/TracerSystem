@@ -49,7 +49,7 @@ int count = 0;
 bool signupOK = false;
 
 uint8_t capacity = 60;
-uint8_t current = 23;
+uint8_t current = 25;
 uint8_t voltage = 63;
 
 void setup()
