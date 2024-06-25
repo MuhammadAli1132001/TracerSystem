@@ -29,7 +29,7 @@
 #define DATABASE_URL "https://tracer-system-with-esp32-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define DataSendedLed 8
 #define WifiConnectedLed 7
-#define Dht_Sensor_Pin 9
+#define Dht_Sensor_Pin 11
 
 #define Dht_type DHT11
 float Humidity = 0.0;
