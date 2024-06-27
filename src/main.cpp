@@ -29,7 +29,7 @@
 #define DATABASE_URL "https://tracer-system-with-esp32-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define DataSendedLed 8
 #define WifiConnectedLed 7
-#define Dht_Sensor_Pin 9
+#define Dht_Sensor_Pin 11
 
 #define Dht_type DHT11
 float Humidity = 0.0;
@@ -48,7 +48,7 @@ unsigned long sendDataPrevMillis = 0;
 int count = 0;
 bool signupOK = false;
 
-uint8_t capacity = 65;
+uint8_t capacity = 60;
 uint8_t current = 25;
 uint8_t voltage = 63;
 
