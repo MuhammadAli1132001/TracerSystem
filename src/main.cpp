@@ -48,7 +48,7 @@ unsigned long sendDataPrevMillis = 0;
 int count = 0;
 bool signupOK = false;
 
-uint8_t capacity = 60;
+uint8_t capacity = 65;
 uint8_t current = 25;
 uint8_t voltage = 63;
 
