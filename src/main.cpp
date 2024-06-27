@@ -111,18 +111,18 @@ void loop()
     if (Firebase.RTDB.setFloat(&fbdo, "dht/temperature", Temperature))
     {
 
-      Serial.print("  Temperature:  ");
+      Serial.print("\nTemperature:  ");
       Serial.println(Temperature);
       Serial.println("PASSED");
-      Serial.print(" PATH: ");
+      Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
 
-      Serial.print("  TYPE:  ");
+      Serial.print("\nTYPE:  ");
       Serial.print(fbdo.dataType());
     }
     else
     {
-      Serial.println("FAILED");
+      Serial.println("\nFAILED");
       Serial.print("REASON: ");
       Serial.print(fbdo.errorReason());
     }
@@ -131,72 +131,72 @@ void loop()
     if (Firebase.RTDB.setFloat(&fbdo, "dht/humidity", Humidity))
     {
 
-      Serial.print("  Humidity:  ");
+      Serial.print("\nHumidity:  ");
       Serial.println(Humidity);
-      Serial.println("PASSED");
-      Serial.print(" PATH: ");
+      Serial.println("\nPASSED");
+      Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
       Serial.print(fbdo.dataType());
     }
     else
     {
-      Serial.println("FAILED");
-      Serial.print("REASON: ");
+      Serial.println("\nFAILED");
+      Serial.print("\nREASON: ");
       Serial.print(fbdo.errorReason());
     }
 
     if (Firebase.RTDB.setFloat(&fbdo, "battery/capacity", capacity))
     {
 
-      Serial.print("  Capacity:  ");
+      Serial.print("\nCapacity:  ");
       Serial.println(capacity);
-      Serial.println("PASSED");
-      Serial.print(" PATH: ");
+      Serial.println("\nPASSED");
+      Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
       Serial.print(fbdo.dataType());
     }
     else
     {
-      Serial.println("FAILED");
-      Serial.print("REASON: ");
+      Serial.println("\nFAILED");
+      Serial.print("\nREASON: ");
       Serial.print(fbdo.errorReason());
     }
 
     if (Firebase.RTDB.setFloat(&fbdo, "battery/current", current))
     {
 
-      Serial.print("  current:  ");
+      Serial.print("\ncurrent:  ");
       Serial.println(current);
-      Serial.println("PASSED");
-      Serial.print(" PATH: ");
+      Serial.println("\nPASSED");
+      Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
       Serial.print(fbdo.dataType());
     }
     else
     {
-      Serial.println("FAILED");
-      Serial.print("REASON: ");
+      Serial.println("\nFAILED");
+      Serial.print("\nREASON: ");
       Serial.print(fbdo.errorReason());
     }
 
     if (Firebase.RTDB.setFloat(&fbdo, "battery/voltage", voltage))
     {
 
-      Serial.print("  voltage:  ");
+      Serial.print("\nvoltage:  ");
       Serial.println(current);
-      Serial.println("PASSED");
-      Serial.print(" PATH: ");
+      Serial.println("\nPASSED");
+      Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
-      Serial.print("  TYPE: ");
+      Serial.print(" TYPE: ");
       Serial.print(fbdo.dataType());
     }
     else
     {
-      Serial.println("FAILED");
-      Serial.print("REASON: ");
+      Serial.println("\nFAILED");
+      Serial.print("\nREASON: ");
       Serial.print(fbdo.errorReason());
     }
   }
