@@ -30,10 +30,14 @@
 #define DataSendedLed 8
 #define WifiConnectedLed 7
 #define Dht_Sensor_Pin 11
+#define switch_pin 3
+#define database_led 5
 
 #define Dht_type DHT11
 float Humidity = 0.0;
 float Temperature = 0.0;
+
+bool led_status = false;
 
 DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
 WebServer server(80);
@@ -48,7 +52,7 @@ unsigned long sendDataPrevMillis = 0;
 int count = 0;
 bool signupOK = false;
 
-uint8_t capacity = 60;
+uint8_t capacity = 90;
 uint8_t current = 25;
 uint8_t voltage = 63;
 
@@ -57,8 +61,8 @@ void setup()
   Serial.begin(115200);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
-  pinMode(WifiConnectedLed, OUTPUT);
-  pinMode(DataSendedLed, OUTPUT);
+  // pinMode(WifiConnectedLed, OUTPUT);
+  // pinMode(DataSendedLed, OUTPUT);
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -107,24 +111,16 @@ void loop()
     Temperature = dht_sensor.readHumidity();
     digitalWrite(DataSendedLed, HIGH);
 
-    // Write an Int number on the database path test/int
-    if (Firebase.RTDB.setFloat(&fbdo, "dht/temperature", Temperature))
+    if (digitalRead(switch_pin))
     {
-
-      Serial.print("\nTemperature:  ");
-      Serial.println(Temperature);
-      Serial.println("PASSED");
-      Serial.print("\nPATH: ");
-      Serial.print(fbdo.dataPath());
-
-      Serial.print("\nTYPE:  ");
-      Serial.print(fbdo.dataType());
-    }
-    else
-    {
-      Serial.println("\nFAILED");
-      Serial.print("REASON: ");
-      Serial.print(fbdo.errorReason());
+      if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
+      {
+        led_status = fbdo.boolData();
+        digitalWrite(database_led, led_status);
+      }
+      else {
+        Serial.print("switch is getted");
+      }
     }
 
     // Write an Float number on the database path test/float
@@ -145,6 +141,27 @@ void loop()
       Serial.print("\nREASON: ");
       Serial.print(fbdo.errorReason());
     }
+
+        // Write an Int number on the database path test/int
+    if (Firebase.RTDB.setInt(&fbdo, "dht/temperature", Temperature))
+    {
+
+      Serial.print("\nTemperature:  ");
+      Serial.println(Temperature);
+      Serial.println("PASSED");
+      Serial.print("\nPATH: ");
+      Serial.print(fbdo.dataPath());
+
+      Serial.print("\nTYPE:  ");
+      Serial.print(fbdo.dataType());
+    }
+    else
+    {
+      Serial.println("\nFAILED");
+      Serial.print("REASON: ");
+      Serial.print(fbdo.errorReason());
+    }
+
 
     if (Firebase.RTDB.setFloat(&fbdo, "battery/capacity", capacity))
     {
