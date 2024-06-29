@@ -100,29 +100,33 @@ void setup()
   Firebase.reconnectWiFi(true);
 }
 
-void loop()
-{
+void loop(){
+
+  if (!digitalRead(switch_pin))
+  {
+    /* code */
+    led_status = !led_status;
+    Serial.print("button pressed led status is "); Serial.print(led_status);
+    
+  }
+  
 
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0))
   {
-
     sendDataPrevMillis = millis();
     Humidity = dht_sensor.readTemperature();
     Temperature = dht_sensor.readHumidity();
     digitalWrite(DataSendedLed, HIGH);
 
-    if (digitalRead(switch_pin))
+    if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
     {
-      if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
-      {
-        led_status = fbdo.boolData();
-        digitalWrite(database_led, led_status);
-      }
-      else {
-        Serial.print("switch is getted");
-      }
+      led_status = fbdo.boolData();
+      digitalWrite(database_led, led_status);
     }
-
+    else {
+      Serial.print("switch is not getted");
+    }
+  
     // Write an Float number on the database path test/float
     if (Firebase.RTDB.setFloat(&fbdo, "dht/humidity", Humidity))
     {
