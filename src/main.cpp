@@ -29,7 +29,7 @@
 #define DATABASE_URL "https://tracer-system-with-esp32-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define DataSendedLed 8
 #define WifiConnectedLed 7
-#define Dht_Sensor_Pin 11
+#define Dht_Sensor_Pin 12
 #define switch_pin 3
 #define database_led 5
 
@@ -53,7 +53,7 @@ int count = 0;
 bool signupOK = false;
 
 uint8_t capacity = 90;
-uint8_t current = 25;
+uint8_t current = 30;
 uint8_t voltage = 63;
 
 void setup()
@@ -63,6 +63,7 @@ void setup()
   Serial.print("Connecting to Wi-Fi");
   // pinMode(WifiConnectedLed, OUTPUT);
   // pinMode(DataSendedLed, OUTPUT);
+  pinMode(switch_pin, INPUT);
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -97,7 +98,7 @@ void setup()
   config.token_status_callback = tokenStatusCallback; // see addons/TokenHelper.h
 
   Firebase.begin(&config, &auth);
-  Firebase.reconnectWiFi(true);
+  // Firebase.reconnectWiFi(true);
 }
 
 void loop(){
@@ -111,11 +112,13 @@ void loop(){
   }
   
 
-  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0))
+  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
   {
     sendDataPrevMillis = millis();
+
     Humidity = dht_sensor.readTemperature();
     Temperature = dht_sensor.readHumidity();
+
     digitalWrite(DataSendedLed, HIGH);
 
     if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
@@ -133,7 +136,7 @@ void loop(){
 
       Serial.print("\nHumidity:  ");
       Serial.println(Humidity);
-      Serial.println("\nPASSED");
+      Serial.println("\nPASSED to firebase");
       Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
@@ -152,7 +155,7 @@ void loop(){
 
       Serial.print("\nTemperature:  ");
       Serial.println(Temperature);
-      Serial.println("PASSED");
+      Serial.println("\nPASSED to firebase");
       Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
 
@@ -172,7 +175,7 @@ void loop(){
 
       Serial.print("\nCapacity:  ");
       Serial.println(capacity);
-      Serial.println("\nPASSED");
+      Serial.println("\nPASSED to firebase");
       Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
@@ -190,7 +193,7 @@ void loop(){
 
       Serial.print("\nRnadom Current:  ");
       Serial.println(current);
-      Serial.println("\nPASSED");
+      Serial.println("\nPASSED to firebase");
       Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print("  TYPE: ");
@@ -208,7 +211,7 @@ void loop(){
 
       Serial.print("\nRandom Voltage:  ");
       Serial.println(current);
-      Serial.println("\nPASSED");
+      Serial.println("\nPASSED to firebase");
       Serial.print("\nPATH: ");
       Serial.print(fbdo.dataPath());
       Serial.print(" TYPE: ");
