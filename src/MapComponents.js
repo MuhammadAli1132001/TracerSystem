@@ -39,7 +39,7 @@ const MapComponent = () => {
  
       const addMarkers = async () => {
 
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 10; i++) {
         const location = new google.maps.LatLng(latitude + i * 0.001, longitude);             //random values
         const location2 = new google.maps.LatLng(latitude2, longitude2 + i * 0.001);
 
@@ -57,7 +57,7 @@ const MapComponent = () => {
         });
 
         const infoWindow = new google.maps.InfoWindow({
-          content: '<h1> Ghal Dady </h1>',
+          content: '<p> Ghal Dady </p>',
         });
 
         marker.addListener('click', () => {
