@@ -55,6 +55,7 @@ bool signupOK = false;
 uint8_t capacity = 90;
 uint8_t current = 30;
 uint8_t voltage = 63;
+uint8_t Kmrange =140;
 
 void setup()
 {
@@ -118,7 +119,6 @@ void loop(){
 
     Humidity = dht_sensor.readTemperature();
     Temperature = dht_sensor.readHumidity();
-
     digitalWrite(DataSendedLed, HIGH);
 
     if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
@@ -210,6 +210,24 @@ void loop(){
     {
 
       Serial.print("\nRandom Voltage:  ");
+      Serial.println(current);
+      Serial.println("\nPASSED to firebase");
+      Serial.print("\nPATH: ");
+      Serial.print(fbdo.dataPath());
+      Serial.print(" TYPE: ");
+      Serial.print(fbdo.dataType());
+    }
+    else
+    {
+      Serial.println("\nFAILED");
+      Serial.print("\nREASON: ");
+      Serial.print(fbdo.errorReason());
+    }
+
+    if (Firebase.RTDB.setFloat(&fbdo, "battery/kmrange", Kmrange))
+    {
+
+      Serial.print("\nRandom Range:  ");
       Serial.println(current);
       Serial.println("\nPASSED to firebase");
       Serial.print("\nPATH: ");
