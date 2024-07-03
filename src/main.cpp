@@ -55,7 +55,7 @@ bool signupOK = false;
 uint8_t capacity = 90;
 uint8_t current = 30;
 uint8_t voltage = 63;
-uint8_t Kmrange =140;
+uint8_t Kmrange = 140;
 
 void setup()
 {
@@ -64,7 +64,7 @@ void setup()
   Serial.print("Connecting to Wi-Fi");
   // pinMode(WifiConnectedLed, OUTPUT);
   // pinMode(DataSendedLed, OUTPUT);
-  pinMode(switch_pin, INPUT);
+  // pinMode(switch_pin, INPUT);
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -104,6 +104,16 @@ void setup()
 
 void loop(){
 
+
+  // switch (state_flow)
+  // {
+  // case /* constant-expression */:
+  //   /* code */
+  //   break;
+  
+  // default:
+  //   break;
+  // }
   if (!digitalRead(switch_pin))
   {
     /* code */
@@ -150,7 +160,7 @@ void loop(){
     }
 
         // Write an Int number on the database path test/int
-    if (Firebase.RTDB.setInt(&fbdo, "dht/temperature", Temperature))
+    if (Firebase.RTDB.setInt(&fbdo, "dht/temp", Temperature))
     {
 
       Serial.print("\nTemperature:  ");
