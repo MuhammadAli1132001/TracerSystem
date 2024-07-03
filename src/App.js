@@ -14,7 +14,7 @@ function App() {
   const [selectedFeature, setSelectedFeature] = useState('none');
   const [vehicleRunStatus, setVehicleRunStatus] = useState(false);
   const [dhtData, setDhtData] = useState({ humidity: 0, temperature: 0 });
-  const [batteryData, setBatteryData] = useState({ current: 0, capacity: 0 });
+  const [batteryData, setBatteryData] = useState({ current: 0, voltage: 0, capacity: 0, kmrange: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,7 +34,7 @@ function App() {
         const data = snapshot.val();
         setBatteryData(data);
       }, (errorObject) => {
-        setError(errorObject);
+        setError(errorObject); 
       });
 
       setLoading(false);
@@ -60,7 +60,7 @@ function App() {
   }
 
   if (error){
-    return <div>Error fetchData: {error.message} </div>    //this wiill error if database is unactive
+    return <div>Error fetchData: {error.message} </div>    //this will error if database is unactive
   }
   
   // const handleControlClick = (status) => {
@@ -80,9 +80,9 @@ function App() {
         </nav>
         <div>
           {selectedFeature === 'temperature' && <TemperatureComponent data = {dhtData.temperature}/>}
-          {selectedFeature === 'humidity' && <MoistureComponent data = {dhtData.humidity}/>}
-          {selectedFeature === 'battery' && <BatteryComponent data = {batteryData.current}/>}
-          {selectedFeature === 'battery' && <BatteryComponent data = {batteryData.capacity}/>}
+          {selectedFeature === 'humidity' && <HumidityComponent data = {dhtData.humidity}/>}
+          {selectedFeature === 'battery' && <BatteryComponent data = {batteryData}/>}
+          {/* {selectedFeature === 'battery' && <BatteryComponent data = {batteryData.capacity}/>} */}
 
         </div>
 
@@ -100,9 +100,9 @@ function App() {
             </tr>
             <tr>
               <td colSpan="2">
-                <p>ServerStatus: {loading ? 'connect ' : 'notconnect '} </p>
+                <p>ServerStatus: {loading ? 'not connect ' : 'connect '} </p>
                 <p>with error {error}</p> 
-                {/* { vehicleRunStatus ? <RunComponent /> : <StopComponent />}  */}
+                { vehicleRunStatus ? <RunComponent /> : <StopComponent />} 
               </td>
             </tr>
           </tbody>
@@ -126,7 +126,7 @@ function App() {
   );
 }
 
-const TemperatureComponent = (data) => {
+const TemperatureComponent = ({data}) => {
 
   // const temperature = 40;
 
@@ -139,30 +139,32 @@ const TemperatureComponent = (data) => {
   );
 };
 
-const MoistureComponent = (data) => {
+const HumidityComponent = ({data}) => {
 
   // const moisture = 36;
   return (
     <div>
-      <h2>Moisture Information</h2>
-      <p>Moisture: {data}</p>
+      <h2>Humidity Information</h2>
+      <p>Humidity: {data}</p>
     </div>
   );
 }
 
 
-const BatteryComponent = (data) => {
+const BatteryComponent = ({data}) => {
 
-  const capacity = 65;
-  // const current = 9;
-  const volatge = 62;
-  const RangeInKm = 50;
+  // const capacity = 65;
+  // // const current = 9;
+  // const volatge = 62;
+  // const RangeInKm = 50;
 
   return (
     <div>
       <h2>Battery Information</h2>
-      {<p>Capacity: {capacity}%  Current: {data}A  Voltage: {volatge}V  Range: {RangeInKm}KM</p> }
-      <p>{data}</p>
+      {<p>Current: {data.current}A Capacity: {data.capacity}% Voltage: {data.voltage}V  Range: {data.kmrange}KM</p> }
+
+      {/* {<p>Capacity: {capacity}%  Current: {data}A  Voltage: {volatge}V  Range: {RangeInKm}KM</p> } */}
+      {/* <p>{data}</p> */}
 
     </div>
   );

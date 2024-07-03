@@ -12,7 +12,7 @@ const MapComponent = () => {
     document.head.appendChild(script);                                              //appended to document head loading the script
 
     script.onload = () => {                                                        //func called after loading
-      initMap();
+      window.initMap = initMap;
     };
 
     return () => {
@@ -25,7 +25,7 @@ const MapComponent = () => {
     const longitude = 71.477271;
     const latitude2 = 34.100105;
     const longitude2 = 71.477771;
-    const delay = 1000;
+    const delay = 2000;
 
     const defaultLocation = { lat: latitude, lng: longitude };
     const defaultLocation2 = { lat: latitude2, lng: longitude2 };
@@ -39,7 +39,7 @@ const MapComponent = () => {
  
       const addMarkers = async () => {
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 30; i++) {
         const location = new google.maps.LatLng(latitude + i * 0.001, longitude);             //random values
         const location2 = new google.maps.LatLng(latitude2, longitude2 + i * 0.001);
 
@@ -57,7 +57,7 @@ const MapComponent = () => {
         });
 
         const infoWindow = new google.maps.InfoWindow({
-          content: '<p> Ghal Dady </p>',
+          content: '<h1> Ghal Dady <h1>',
         });
 
         marker.addListener('click', () => {
