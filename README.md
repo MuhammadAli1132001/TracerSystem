@@ -9,6 +9,7 @@ Designing an embedded/IoT product for real-time tracking using components like E
 - STM8 microcontroller
 - UBLOX NEO-6M V2 GPS Module
 - LoRaWAN module
+- GSM module
 
 ## Abstraction
 The Tracer device utilizes ESP32 microcontroller and UBLOX NEO-6M V2 GPS Module for real-time tracking. Communication between GPS and ESP32 is achieved via UART protocol. GPS coordinates can be converted into a map location using mapping APIs like Google Maps, OpenStreetMap, or Mapbox.
