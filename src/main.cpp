@@ -11,6 +11,51 @@
 #endif
 #include <Firebase_ESP_Client.h>
 
+// #define DataSendedLed 8
+// #define Dht_Sensor_Pin 12           //Read esp32 datasheet strapping pins section. 15 and more importantly 2 and 12 are strapping pins.
+// #define switch_pin 3
+// #define Dht_type DHT11
+
+// float Humidity = 0.0;
+// float Temperature = 0.0;
+
+// DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
+// uint8_t capacity = 90;
+// uint8_t current = 25;
+// uint8_t voltage = 63;
+
+// void setup()
+// {
+//   Serial.begin(115200);
+//   pinMode(Dht_Sensor_Pin, OUTPUT);
+//   delay(1000);
+
+// }
+
+// void loop(){
+
+//   // sendDataPrevMillis = millis();
+//   Humidity = dht_sensor.readTemperature();
+//   Temperature = dht_sensor.readHumidity();
+//   digitalWrite(DataSendedLed, HIGH);
+
+//   Serial.print("\nHumidity:  ");
+//   Serial.println(Humidity);
+
+//   Serial.print("\nTemperature:  ");
+//   Serial.println(Temperature);
+
+//   Serial.print("\nCapacity:  ");
+//   Serial.println(capacity);
+//   Serial.print("\nRandom Current:  ");
+
+//   Serial.println(current);
+//   Serial.print("\nRandom Voltage:  ");
+//   Serial.println(voltage);
+//   delay(3000);
+// }
+
+
 // Provide the token generation process info.
 #include "addons/TokenHelper.h"
 // Provide the RTDB payload printing info and other helper functions.
@@ -104,16 +149,6 @@ void setup()
 
 void loop(){
 
-
-  // switch (state_flow)
-  // {
-  // case /* constant-expression */:
-  //   /* code */
-  //   break;
-  
-  // default:
-  //   break;
-  // }
   if (!digitalRead(switch_pin))
   {
     /* code */
@@ -122,7 +157,13 @@ void loop(){
     
   }
   
-
+  if(!digitalRead(switch_pin))
+  {
+    if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
+    {
+      
+    }
+  }
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
   {
     sendDataPrevMillis = millis();
@@ -253,91 +294,3 @@ void loop(){
     }
   }
 }
-
-// #define wifissid "CST WIFI"
-// #define wifipssd "iotdevs123"
-// #define led 2
-
-// void handleOnroot();
-// void handleOnNotFound();
-// uint8_t H, T;
-// WebServer Server(80);
-
-// void setup() {
-
-//   WiFi.mode(WIFI_STA);
-//   WiFi.begin(wifissid,wifipssd);
-//   Serial.begin(9600);
-
-//   while (WiFi.status() != WL_CONNECTED)
-//   {
-//     delay(100);
-//     Serial.print(".");
-//   }
-
-//   Serial.print("\nConnected to ");
-//   Serial.print(wifissid);
-//   Serial.print(" with local ip ");
-//   Serial.print(WiFi.localIP());
-
-//   Server.begin();
-//   Server.on("/", handleOnroot);
-
-//   Server.onNotFound(handleOnNotFound);
-
-// }
-
-// void loop() {
-
-//   Server.handleClient();
-//   delay(500);
-
-// }
-
-// void handleOnroot() {
-//   digitalWrite(led, 1);
-//   char temp[800];
-
-//   H = random();
-//   T = random();
-
-//   snprintf(temp, 800,
-//   "<html>\
-//   <head>\
-//     <meta http-equiv='refresh' content='5'/>\
-//     <title>ESP32 Demo</title>\
-//     <style>\
-//       body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Color: #000088; }\
-//     </style>\
-//   </head>\
-//   <body>\
-//   </body>\
-// </html>",
-//            H, T
-//           );
-//   Server.send(500, "text/html", temp);
-//   digitalWrite(led, 0);
-// }
-
-// void handleOnNotFound() {
-//   digitalWrite(led, 1);
-//   String message = "File Not Found bro\n\n";
-//   message += "URI: ";
-//   message += Server.uri();
-//   message += "\nMethod: ";
-//   message += (Server.method() == HTTP_GET) ? "GET" : "POST";
-//   message += "\nArguments: ";
-//   message += Server.args();
-//   message += "\n";
-
-//   for (uint8_t i = 0; i < Server.args(); i++) {
-//     message += " " + Server.argName(i) + ": " + Server.arg(i) + "\n";
-//   }
-
-//   Server.send(404, "text/plain", message);
-//   digitalWrite(led, 0);
-// }
-
-// void returnfalse(){
-
-// }            
