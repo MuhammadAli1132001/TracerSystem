@@ -3,6 +3,7 @@
 #include <WebServer.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
+#include <LittleFS.h>
 
 #if defined(ESP32)
 #include <WiFi.h>
@@ -10,51 +11,6 @@
 #include <ESP8266WiFi.h>
 #endif
 #include <Firebase_ESP_Client.h>
-
-// #define DataSendedLed 8
-// #define Dht_Sensor_Pin 12           //Read esp32 datasheet strapping pins section. 15 and more importantly 2 and 12 are strapping pins.
-// #define switch_pin 3
-// #define Dht_type DHT11
-
-// float Humidity = 0.0;
-// float Temperature = 0.0;
-
-// DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
-// uint8_t capacity = 90;
-// uint8_t current = 25;
-// uint8_t voltage = 63;
-
-// void setup()
-// {
-//   Serial.begin(115200);
-//   pinMode(Dht_Sensor_Pin, OUTPUT);
-//   delay(1000);
-
-// }
-
-// void loop(){
-
-//   // sendDataPrevMillis = millis();
-//   Humidity = dht_sensor.readTemperature();
-//   Temperature = dht_sensor.readHumidity();
-//   digitalWrite(DataSendedLed, HIGH);
-
-//   Serial.print("\nHumidity:  ");
-//   Serial.println(Humidity);
-
-//   Serial.print("\nTemperature:  ");
-//   Serial.println(Temperature);
-
-//   Serial.print("\nCapacity:  ");
-//   Serial.println(capacity);
-//   Serial.print("\nRandom Current:  ");
-
-//   Serial.println(current);
-//   Serial.print("\nRandom Voltage:  ");
-//   Serial.println(voltage);
-//   delay(3000);
-// }
-
 
 // Provide the token generation process info.
 #include "addons/TokenHelper.h"
@@ -111,6 +67,29 @@ void setup()
   // pinMode(DataSendedLed, OUTPUT);
   // pinMode(switch_pin, INPUT);
 
+  if (!LittleFS.begin(true))
+  {
+    Serial.print("error occure while littleFs monuting ");
+    return;
+  }
+  
+  File file = LittleFS.open("/data.txt");
+
+  if(!file)
+  {
+    Serial.print("cant open the file");
+  }
+
+  Serial.print("file content are:");
+  while (file.available())
+  {
+    Serial.write(file.read());
+
+  }
+  
+  Serial.print("readed and closed");
+  file.close();
+
   while (WiFi.status() != WL_CONNECTED)
   {
     Serial.print(".");
@@ -161,7 +140,7 @@ void loop(){
   {
     if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
     {
-      
+
     }
   }
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
@@ -294,3 +273,49 @@ void loop(){
     }
   }
 }
+
+
+
+// #define DataSendedLed 8
+// #define Dht_Sensor_Pin 12           //Read esp32 datasheet strapping pins section. 15 and more importantly 2 and 12 are strapping pins.
+// #define switch_pin 3
+// #define Dht_type DHT11
+
+// float Humidity = 0.0;
+// float Temperature = 0.0;
+
+// DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
+// uint8_t capacity = 90;
+// uint8_t current = 25;
+// uint8_t voltage = 63;
+
+// void setup()
+// {
+//   Serial.begin(115200);
+//   pinMode(Dht_Sensor_Pin, OUTPUT);
+//   delay(1000);
+
+// }
+
+// void loop(){
+
+//   // sendDataPrevMillis = millis();
+//   Humidity = dht_sensor.readTemperature();
+//   Temperature = dht_sensor.readHumidity();
+//   digitalWrite(DataSendedLed, HIGH);
+
+//   Serial.print("\nHumidity:  ");
+//   Serial.println(Humidity);
+
+//   Serial.print("\nTemperature:  ");
+//   Serial.println(Temperature);
+
+//   Serial.print("\nCapacity:  ");
+//   Serial.println(capacity);
+//   Serial.print("\nRandom Current:  ");
+
+//   Serial.println(current);
+//   Serial.print("\nRandom Voltage:  ");
+//   Serial.println(voltage);
+//   delay(3000);
+// }
