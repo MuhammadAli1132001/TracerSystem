@@ -132,17 +132,10 @@ void loop(){
   {
     /* code */
     led_status = !led_status;
-    Serial.print("button pressed led status is "); Serial.print(led_status);
+    Serial.print("button pressed to change led status "); Serial.print(led_status);
     
   }
-  
-  if(!digitalRead(switch_pin))
-  {
-    if (Firebase.RTDB.getBool(&fbdo, "switch/led_status"))
-    {
 
-    }
-  }
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
   {
     sendDataPrevMillis = millis();
