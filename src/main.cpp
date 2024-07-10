@@ -242,16 +242,20 @@ void current_voltage_capacity_to_firebase()
   }
 }
 
+void check_button()
+{
+    if (!digitalRead(switch_pin))
+  {
+    led_status = !led_status;
+    Serial.print("button is pressed to change led status ");
+    Serial.print(led_status);
+  }
+}
+
 void loop()
 {
 
-  if (!digitalRead(switch_pin))
-  {
-    /* code */
-    led_status = !led_status;
-    Serial.print("button pressed to change led status ");
-    Serial.print(led_status);
-  }
+  check_button();
 
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
   {
