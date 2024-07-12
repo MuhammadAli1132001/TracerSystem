@@ -54,7 +54,7 @@ int count = 0;
 bool signupOK = false;
 
 uint8_t capacity = 90;
-uint8_t current = 30;
+uint8_t current = 20;
 uint8_t voltage = 63;
 uint8_t Kmrange = 140;
 
