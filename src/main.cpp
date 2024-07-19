@@ -74,6 +74,7 @@ void WiFi_setup()
   digitalWrite(WifiConnectedLed, HIGH);
 
 }
+
 void temperature_humidity_firebase(float Temperature, float Humidity)
 {
   // Write an Float number on the database path test/float
