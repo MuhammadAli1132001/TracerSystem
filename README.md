@@ -10,6 +10,7 @@ Designing an embedded/IoT product for real-time tracking using components like E
 - UBLOX NEO-6M V2 GPS Module
 - LoRaWAN module
 - GSM module
+- camera module (future)
 
 ## Abstraction
 The Tracer device utilizes ESP32 microcontroller and UBLOX NEO-6M V2 GPS Module for real-time tracking. Communication between GPS and ESP32 is achieved via UART protocol. GPS coordinates can be converted into a map location using mapping APIs like Google Maps, OpenStreetMap, or Mapbox.
@@ -29,7 +30,7 @@ There's no inherent range limit, but it depends on device storage capacity, map 
 Mapbox offers mapping tools, while LoRaWAN facilitates long-range IoT communication. They can be used together for real-time tracking and visualization.
 
 ## Methodologies
-Utilize ESP-IDF platform-io in VSCODE for development. Security configurations include WPA3, PMF for Wi-Fi.
+Utilize Arduino framework in platform-io for development. In future Security configurations include WPA3, PMF for Wi-Fi.
 
 ## Monitoring Unit
 Installed in remote areas for real-time monitoring and vehicle control, Wi-Fi configured for data transfer to web/mobile apps.
