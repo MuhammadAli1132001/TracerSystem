@@ -1,5 +1,4 @@
 #ifndef Main_h
-
 #define Main_h
 
 #include <Arduino.h>
@@ -8,10 +7,12 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <LittleFS.h>
-#include "time.h"
-#include <ESP_Google_Sheet_Client.h>
+// #include "time.h"
+// #include <ESP_Google_Sheet_Client.h>
 // For SD/SD_MMC mounting helper
-#include <GS_SDHelper.h>
+// #include <GS_SDHelper.h>
+
+
 #if defined(ESP32)
 #include <WiFi.h>
 #elif defined(ESP8266)
@@ -24,7 +25,8 @@
 // Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
 
-#include "googlesheetstorage.h"
+// #include "googlesheetstorage.h"
+
 // Insert your network credentials
 #define WIFI_SSID "CST WIFI"
 #define WIFI_PASSWORD "iotdevs123"
@@ -65,6 +67,11 @@ uint8_t capacity = 90;
 uint8_t current = 20;
 uint8_t voltage = 63;
 uint8_t Kmrange = 140;
+
+void WiFi_setup();
+void temperature_humidity_firebase(float Temperature, float Humidity);
+void current_voltage_capacity_to_firebase();
+void check_button();
 
 
 #endif

@@ -8,6 +8,7 @@ void setup()
   // pinMode(WifiConnectedLed, OUTPUT);
   // pinMode(DataSendedLed, OUTPUT);
   // pinMode(switch_pin, INPUT);
+  //  setup_googlesheet();
 
   if (!LittleFS.begin(true))
   {
@@ -31,17 +32,7 @@ void setup()
   Serial.print("readed and closed");
   file.close();
 
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    Serial.print(".");
-    delay(500);
-  }
-  Serial.println();
-
-  Serial.print("Connected with IP: ");
-  Serial.println(WiFi.localIP());
-  Serial.println();
-  digitalWrite(WifiConnectedLed, HIGH);
+  WiFi_setup();
 
   /* Assign the api key (required) */
   config.api_key = API_KEY;
@@ -67,6 +58,22 @@ void setup()
   // Firebase.reconnectWiFi(true);
 }
 
+
+void WiFi_setup()
+{
+ while (WiFi.status() != WL_CONNECTED)
+  {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+
+  Serial.print("Connected with IP: ");
+  Serial.println(WiFi.localIP());
+  Serial.println();
+  digitalWrite(WifiConnectedLed, HIGH);
+
+}
 void temperature_humidity_firebase(float Temperature, float Humidity)
 {
   // Write an Float number on the database path test/float
@@ -198,6 +205,7 @@ void loop()
 {
 
   check_button();
+  // loop_googlesheet();
 
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
   {
