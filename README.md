@@ -13,7 +13,7 @@ Designing an embedded/IoT product for real-time tracking using components like E
 - camera module (future)
 
 ## Abstraction
-The Tracer device utilizes ESP32 microcontroller and UBLOX NEO-6M V2 GPS Module for real-time tracking. Communication between GPS and ESP32 is achieved via UART protocol. GPS coordinates can be converted into a map location using mapping APIs like Google Maps, OpenStreetMap, or Mapbox.
+The Tracer device utilizes ESP32 microcontroller and UBLOX NEO-6M V2 GPS Module for real-time tracking. And controlling with sensor, auto-switches and camera . Communication between GPS and ESP32 is achieved via UART protocol. GPS coordinates can be converted into a map location using mapping APIs like Google Maps, OpenStreetMap, or Mapbox.
 
 ## Communication without Internet
 For communication without internet, consider Bluetooth or LoRa. Bluetooth Low Energy (BLE) connects to nearby devices, while LoRa enables long-range communication without internet dependency.
@@ -44,7 +44,7 @@ Refer to Google Maps JavaScript API documentation for map integration.
 ## Implementation
 Refer to the provided links for integrating map APIs and implementing the Tracer system.
 ## README Summary
-- Objective: Real-time tracking with Tracer device.
+- Objective: Real-time tracking and controlling device.
 - Components: ESP32, GPS Module, LoRaWAN.
 - Communication: UART, Bluetooth, LoRa.
 - **Network:** Local Wi-Fi, Ad-Hoc Wi-Fi, Offline Maps.
