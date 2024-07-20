@@ -10,9 +10,10 @@ Designing an embedded/IoT product for real-time tracking using components like E
 - UBLOX NEO-6M V2 GPS Module
 - LoRaWAN module
 - GSM module
+- camera module (future)
 
 ## Abstraction
-The Tracer device utilizes ESP32 microcontroller and UBLOX NEO-6M V2 GPS Module for real-time tracking. Communication between GPS and ESP32 is achieved via UART protocol. GPS coordinates can be converted into a map location using mapping APIs like Google Maps, OpenStreetMap, or Mapbox.
+The Tracer device utilizes ESP32 microcontroller and UBLOX NEO-6M V2 GPS Module for real-time tracking. And controlling with sensor, auto-switches and camera . Communication between GPS and ESP32 is achieved via UART protocol. GPS coordinates can be converted into a map location using mapping APIs like Google Maps, OpenStreetMap, or Mapbox.
 
 ## Communication without Internet
 For communication without internet, consider Bluetooth or LoRa. Bluetooth Low Energy (BLE) connects to nearby devices, while LoRa enables long-range communication without internet dependency.
@@ -29,7 +30,7 @@ There's no inherent range limit, but it depends on device storage capacity, map 
 Mapbox offers mapping tools, while LoRaWAN facilitates long-range IoT communication. They can be used together for real-time tracking and visualization.
 
 ## Methodologies
-Utilize ESP-IDF platform-io in VSCODE for development. Security configurations include WPA3, PMF for Wi-Fi.
+Utilize Arduino framework in platform-io for development. In future Security configurations include WPA3, PMF for Wi-Fi.
 
 ## Monitoring Unit
 Installed in remote areas for real-time monitoring and vehicle control, Wi-Fi configured for data transfer to web/mobile apps.
@@ -43,7 +44,7 @@ Refer to Google Maps JavaScript API documentation for map integration.
 ## Implementation
 Refer to the provided links for integrating map APIs and implementing the Tracer system.
 ## README Summary
-- Objective: Real-time tracking with Tracer device.
+- Objective: Real-time tracking and controlling device.
 - Components: ESP32, GPS Module, LoRaWAN.
 - Communication: UART, Bluetooth, LoRa.
 - **Network:** Local Wi-Fi, Ad-Hoc Wi-Fi, Offline Maps.
