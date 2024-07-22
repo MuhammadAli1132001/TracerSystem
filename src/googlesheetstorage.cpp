@@ -79,7 +79,7 @@ void loop_googlesheet(){
 
         FirebaseJson response;
 
-        Serial.println("\nAppend spreadsheet values...");
+        Serial.println("\nAppend spreadsheet value...");
         Serial.println("----------------------------");
 
         FirebaseJson valueRange;
