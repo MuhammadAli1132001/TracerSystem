@@ -6,8 +6,6 @@ void setup()
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   // pinMode(WifiConnectedLed, OUTPUT);
-  // pinMode(DataSendedLed, OUTPUT);
-  // pinMode(switch_pin, INPUT);
   //  setup_googlesheet();
 
   if (!LittleFS.begin(true))
