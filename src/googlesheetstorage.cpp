@@ -1,13 +1,13 @@
 #include "main.h"
-#include <Arduino.h>
-#include <WiFi.h>
-#include <Adafruit_Sensor.h>
-#include <dht.h>
-#include "time.h"
-#include <ESP_Google_Sheet_Client.h>
+// #include <Arduino.h>
+// #include <WiFi.h>
+// #include <Adafruit_Sensor.h>
+// #include <dht.h>
+// #include "time.h"
+// #include <ESP_Google_Sheet_Client.h>
 
 // For SD/SD_MMC mounting helper
-#include <GS_SDHelper.h>
+// #include <GS_SDHelper.h>
 // Google Project ID
 #define PROJECT_ID "device-tracer-421211"
 #define Dht_Sensor_Pin 12
@@ -46,8 +46,6 @@ unsigned long getTime() {
 }
 
 void setup_googlesheet(){
-
-
 
     //Configure time
     configTime(0, 0, ntpServer);

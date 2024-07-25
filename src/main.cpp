@@ -6,7 +6,7 @@ void setup()
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
   // pinMode(WifiConnectedLed, OUTPUT);
-  //  setup_googlesheet();
+   setup_googlesheet();
 
   if (!LittleFS.begin(true))
   {
@@ -204,7 +204,7 @@ void loop()
 {
 
   check_button();
-  // loop_googlesheet();
+  loop_googlesheet();
 
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0))
   {
