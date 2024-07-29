@@ -18,7 +18,7 @@ void setup()
 
   if (!file)
   {
-    Serial.print("cant open the file");
+    Serial.print("can't open the file");
   }
 
   Serial.print("file content are:");
