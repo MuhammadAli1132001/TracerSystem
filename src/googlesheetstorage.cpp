@@ -86,7 +86,7 @@ void loop_googlesheet(){
         temp = dht_sensor.readTemperature();
         //temp = 1.8*bme.readTemperature() + 32;
         hum = dht_sensor.readHumidity();
-        pres = 870/100.0F;
+        pres = 810/100.0F;
         // Get timestamp
         epochTime = getTime();
 
