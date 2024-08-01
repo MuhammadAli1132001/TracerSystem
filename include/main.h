@@ -11,8 +11,8 @@
 #include <ESP_Google_Sheet_Client.h>
 // For SD/SD_MMC mounting helper
 #include <GS_SDHelper.h>
-
 #include "googlesheetstorage.h"
+
 #if defined(ESP32)
 #include <WiFi.h>
 #elif defined(ESP8266)
@@ -43,25 +43,7 @@
 #define Dht_Sensor_Pin 12
 #define switch_pin 3
 #define database_led 5
-
 #define Dht_type DHT11
-float Humi = 0.0;
-float Temp = 0.0;
-
-bool led_status = false;
-
-DHT dht_sensor(Dht_Sensor_Pin, Dht_type);
-WebServer server(80);
-
-// Define Firebase Data object
-FirebaseData fbdo;
-
-FirebaseAuth auth;
-FirebaseConfig config;
-
-unsigned long sendDataPrevMillis = 0;
-int count = 0;
-bool signupOK = false;
 
 uint8_t capacity = 90;
 uint8_t current = 20;
@@ -72,6 +54,5 @@ void WiFi_setup();
 void temperature_humidity_firebase(float Temperature, float Humidity);
 void current_voltage_capacity_to_firebase();
 void check_button();
-
-
+unsigned long getTime();
 #endif
