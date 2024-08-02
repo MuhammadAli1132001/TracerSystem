@@ -7,7 +7,7 @@
 #include <DHT.h>
 #include <LittleFS.h>
 #include "time.h"
-
+#include "firebase.h"
 // #if defined(ESP32)
 #include <WiFi.h>
 // #elif defined(ESP8266)

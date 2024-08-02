@@ -24,10 +24,9 @@ void setup() {
 
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
     Serial.print("Connecting to Wi-Fi");
-
-    File_handle();
+    
     WiFi_setup();
-
+    File_handle();
     initializeGSheet();
     dht_sensor.begin();
 }
@@ -86,6 +85,8 @@ void File_handle()
 
 
 void WiFi_setup() {
+
+
     while (WiFi.status() != WL_CONNECTED) {
         Serial.print(".");
         delay(500);
