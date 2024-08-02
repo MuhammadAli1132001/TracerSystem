@@ -9,6 +9,7 @@
 void initializeGSheet();
 bool appendToGSheet(float temp, float hum, float pres, float alt, float longi, unsigned long epochTime);
 void tokenStatusCallback(TokenInfo info);
+
 #endif
 
 
