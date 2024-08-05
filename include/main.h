@@ -12,9 +12,9 @@
 #define WIFI_SSID "CST WIFI"
 #define WIFI_PASSWORD "iotdevs123"
 
-#define DataSendedLed 8
-#define WifiConnectedLed 7
-#define Dht_Sensor_Pin 12
+#define DataSendedLed 11
+#define WifiConnectedLed 8
+#define Dht_Sensor_Pin 15
 #define Dht_type DHT11
 #define switch_pin 3
 #define database_led 5

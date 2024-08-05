@@ -37,22 +37,28 @@ void setup() {
     pinMode(database_led, OUTPUT);
     
     WiFi_setup();
-    File_handle();
+    Serial.print("wifi setup");
+    // File_handle();
     firebase_setup();
+    Serial.print("firebase setup");
     dht_sensor.begin();
+    Serial.print("dht reded");
 }
 
 void loop() {
 
     // check_button();
+        Serial.print("not readed....");
 
     if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0)) {
         sendDataPrevMillis = millis();
 
         temp = dht_sensor.readTemperature();
         humi = dht_sensor.readHumidity();
+        // temp = random(0,100);
+        // humi = random (0,233);
         digitalWrite(DataSendedLed, HIGH);
-
+        Serial.print("readed....");
         temperature_humidity_firebase(temp, humi);
         current_voltage_capacity_to_firebase();
         check_button_status();
@@ -60,25 +66,25 @@ void loop() {
     }
 }
 
-void File_handle()
-{
-    if (!LittleFS.begin(true)) {
-        Serial.print("Error occurred while mounting LittleFS");
-        return;
-    }
+// void File_handle()
+// {
+//     if (!LittleFS.begin(true)) {
+//         Serial.print("Error occurred while mounting LittleFS");
+//         return;
+//     }
 
-    File file = LittleFS.open("/data.txt");
-    if (!file) {
-        Serial.print("Can't open the file");
-    }
+//     File file = LittleFS.open("/data.txt");
+//     if (!file) {
+//         Serial.print("Can't open the file");
+//     }
 
-    Serial.print("File contents are:");
-    while (file.available()) {
-        Serial.write(file.read());
-    }
-    Serial.print("Read and closed");
-    file.close();
-}
+//     Serial.print("File contents are:");
+//     while (file.available()) {
+//         Serial.write(file.read());
+//     }
+//     Serial.print("Read and closed");
+//     file.close();
+// }
 
 
 void WiFi_setup() {
