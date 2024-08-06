@@ -110,7 +110,8 @@ void firebase_setup() {
     if (Firebase.signUp(&config, &auth, "", "")) {
         Serial.println("Firebase signup successful");
         signupOK = true;
-    } else {
+    }
+    else {
         Serial.printf("%s\n", config.signer.signupError.message.c_str());
     }
     config.token_status_callback = tokenStatusCallback;
@@ -120,6 +121,7 @@ void firebase_setup() {
 }
 
 void temperature_humidity_firebase(float Temperature, float Humidity) {
+
     if (Firebase.RTDB.setFloat(&fbdo, "dht/humidity", Humidity)) {
         Serial.print("\nHumidity: ");
         Serial.println(Humidity);
@@ -128,7 +130,8 @@ void temperature_humidity_firebase(float Temperature, float Humidity) {
         Serial.print(fbdo.dataPath());
         Serial.print("  TYPE: ");
         Serial.print(fbdo.dataType());
-    } else {
+    }
+    else {
         Serial.println("\nFAILED");
         Serial.print("\nREASON: ");
         Serial.print(fbdo.errorReason());
@@ -142,12 +145,14 @@ void temperature_humidity_firebase(float Temperature, float Humidity) {
         Serial.print(fbdo.dataPath());
         Serial.print("\nTYPE: ");
         Serial.print(fbdo.dataType());
-    } else {
+    }
+    else {
         Serial.println("\nFAILED");
         Serial.print("\nREASON: ");
         Serial.print(fbdo.errorReason());
     }
 }
+
 
 void current_voltage_capacity_to_firebase() {
 
@@ -156,7 +161,8 @@ void current_voltage_capacity_to_firebase() {
             Serial.print("\nCapacity: ");
             Serial.println(capacity);
             Serial.println("\nPASSED to Firebase");
-        } else {
+        }
+        else {
             Serial.println("\nFAILED");
             Serial.print("\nREASON: ");
             Serial.print(fbdo.errorReason());
@@ -166,7 +172,8 @@ void current_voltage_capacity_to_firebase() {
             Serial.print("\nCurrent: ");
             Serial.println(current);
             Serial.println("\nPASSED to Firebase");
-        } else {
+        }
+        else {
             Serial.println("\nFAILED");
             Serial.print("\nREASON: ");
             Serial.print(fbdo.errorReason());
@@ -176,7 +183,8 @@ void current_voltage_capacity_to_firebase() {
             Serial.print("\nVoltage: ");
             Serial.println(voltage);
             Serial.println("\nPASSED to Firebase");
-        } else {
+        }
+        else {
             Serial.println("\nFAILED");
             Serial.print("\nREASON: ");
             Serial.print(fbdo.errorReason());
@@ -186,7 +194,8 @@ void current_voltage_capacity_to_firebase() {
             Serial.print("\nKmrange: ");
             Serial.println(Kmrange);
             Serial.println("\nPASSED to Firebase");
-        } else {
+        } 
+        else {
             Serial.println("\nFAILED");
             Serial.print("\nREASON: ");
             Serial.print(fbdo.errorReason());
@@ -195,12 +204,14 @@ void current_voltage_capacity_to_firebase() {
 }
 
 void check_button_status() {
+
     if (Firebase.ready()) {
         if (Firebase.RTDB.setInt(&fbdo, "led", led_status)) {
             Serial.print("\nLED Status: ");
             Serial.println(led_status);
             Serial.println("\nPASSED to Firebase");
-        } else {
+        }
+        else {
             Serial.println("\nFAILED");
             Serial.print("\nREASON: ");
             Serial.print(fbdo.errorReason());
