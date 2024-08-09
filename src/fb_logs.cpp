@@ -4,7 +4,7 @@ FirebaseData fbdo;
 FirebaseAuth auth;
 FirebaseConfig config;
 bool signupOK = false;
-uint8_t capacity = 90;
+uint8_t capacity = 77;
 uint8_t current = 20;
 uint8_t voltage = 63;
 uint8_t Kmrange = 140;
