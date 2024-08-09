@@ -112,7 +112,7 @@ function App() {
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
 
         <p>
-          Assalamoalikom, Ali (me) you must built this interface for IoT base tracking project.</p>
+          Assalamoalikom Ali (me), you must built this interface for IoT base tracking project.</p>
         <a
           className="App-link"
           href="https://github.com/MuhammadAli1132001"
